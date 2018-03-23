@@ -1,7 +1,7 @@
 {
-  "name": "My App",
-  "short_name": "My App",
-  "description": "My App description",
+  "name": "Digital Logic Learning",
+  "short_name": "Digital Logic Learning",
+  "description": "Learn the exciting field of Digital Logic Design.  Complete circuits by dragging components to reach the deseired output.",
   "icons": [
     {
       "src": "images/manifest/icon-192x192.png",
