@@ -26,10 +26,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="lazy-import" href="my-view2.html">
 <link rel="lazy-import" href="my-view3.html">
 <link rel="lazy-import" href="my-view404.html">
-<link rel="lazy-import" href="my-home.html">
-<link rel="lazy-import" href="my-levels.html">
-<link rel="lazy-import" href="my-learning.html">
-<link rel="lazy-import" href="my-highscores.html">
+<link rel="import" href="my-home.html">
+<link rel="import" href="my-levels.html">
+<link rel="import" href="my-learning.html">
+<link rel="import" href="my-highscores.html">
+<link rel="import" href="my-test.html">
 
 <dom-module id="my-app">
   <template>
@@ -108,7 +109,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div main-title>Digital Logic Learning</div>
           </app-toolbar>
         </app-header>
-
         <iron-pages
             selected="[[page]]"
             attr-for-selected="name"
@@ -117,11 +117,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <my-view1 name="view1"></my-view1>
           <my-view2 name="view2"></my-view2>
           <my-view3 name="view3"></my-view3>
-          <my-view404 name="view404"></my-view404>
 	  <my-home name="home"></my-home>
-	  <my-levels name="levels"</my-levels>
+	  <my-levels name="levels"></my-levels>
 	  <my-learning name="learning"></my-learning>
 	  <my-highscores name="highscores"></my-highscores>
+          <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -170,6 +170,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _pageChanged(page) {
         // Load page import on demand. Show 404 page if fails
         const resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
+	console.log("New URL: " + resolvedPageUrl);
         Polymer.importHref(
             resolvedPageUrl,
             null,
