@@ -1,0 +1,66 @@
+{
+  "one" : {
+    "inputs" : ["one", "zero", "zero", "one"],
+    "gates" : [
+      [
+        {
+          "gate" : "and",
+          "inputs" : [
+            {
+              "level": 0,
+              "index": 0
+            },
+            {
+              "level": 0,
+              "index": 1
+            }
+          ]
+        },
+        {
+          "gate" : "or",
+          "inputs" : [
+            {
+              "level": 0,
+              "index": 2
+            },
+            {
+              "level": 0,
+              "index": 3
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "gate": "nand",
+          "inputs":[
+            {
+              "level":1,
+              "index":0
+            },
+            {
+              "level":1,
+              "index":1
+            }
+          ]
+        }
+      ]
+    ],
+    "outputs": ["one"]
+  },
+  "two":{
+
+  },
+  "three":{
+
+  },
+  "four":{
+
+  },
+  "five":{
+
+  },
+  "six":{
+
+  }
+}

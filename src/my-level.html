@@ -1,0 +1,180 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+
+<link rel="import" href="my-logic-gate.html">
+
+<dom-module id="my-level">
+  <template>
+    <style include="app-grid-style shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+
+      .gateChoices{
+        padding: 5px;
+        background-color: rgb(150, 150, 150);
+      }
+
+      .innerDiv{
+        white-space: nowrap;
+      }
+
+      .outerDiv{
+        overflow-x: auto;
+      }
+
+      #circuit{
+        background-color: rgb(200, 200, 200);
+      }
+
+      ul{
+        list-style-type: none;
+        display: block;
+        margin: 0;
+        compact;
+      }
+    </style>
+
+    <!-- This is where the level will be displayed -->
+    <div id="circuit" class="outerDiv">
+      <div class="innerDiv">
+        <!-- Logic circuit for the user to interact with -->
+        <paper-item id="circuitPaperItem">
+
+        </paper-item>
+      </div>
+    </div>
+    <div class="outerDiv">
+      <div class="innerDiv">
+        <!-- Gate choices for the user to choose from -->
+        <paper-item class="gateChoices">
+          <my-logic-gate gate-type="and"></my-logic-gate>
+          <my-logic-gate gate-type="or"></my-logic-gate>
+          <my-logic-gate gate-type="not"></my-logic-gate>
+          <my-logic-gate gate-type="xor"></my-logic-gate>
+          <my-logic-gate gate-type="nand"></my-logic-gate>
+          <my-logic-gate gate-type="nor"></my-logic-gate>
+          <my-logic-gate gate-type="xnor"></my-logic-gate>
+        </paper-item>
+      </div>
+    </div>
+  </template>
+  <script>
+    class MyLevel extends Polymer.Element {
+      static get is() { return 'my-level'; }
+
+      // Used to populate the levels
+      constructor(){
+        super();
+      }
+
+      static get properties(){
+        return{
+          level : {
+            type:String,
+            observer: "createLevel"
+          }
+        };
+      }
+
+      // Create the level to show the user
+      createLevel(levelNum){
+        var levels = {
+          "one" : {
+            "inputs" : ["one", "zero", "zero", "one"],
+            "gates" : [
+              [
+                {
+                  "gate" : "and",
+                  "inputs" : [
+                    {
+                      "level": 0,
+                      "index": 0
+                    },
+                    {
+                      "level": 0,
+                      "index": 1
+                    }
+                  ]
+                },
+                {
+                  "gate" : "or",
+                  "inputs" : [
+                    {
+                      "level": 0,
+                      "index": 2
+                    },
+                    {
+                      "level": 0,
+                      "index": 3
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "gate": "empty",
+                  "inputs":[
+                    {
+                      "level":1,
+                      "index":0
+                    },
+                    {
+                      "level":1,
+                      "index":1
+                    }
+                  ]
+                }
+              ]
+            ],
+            "outputs": ["one"]
+          }
+        }
+
+        // Read the level and generate the images
+        var level = levels[levelNum];
+        console.log(levelNum);
+        console.log(level);
+        var innerHTML = "";
+
+        // Do the static inputs
+        innerHTML += "<ul>\n";
+        for(var i = 0; i < level["inputs"].length; i++){
+          innerHTML += "<li>\n";
+          innerHTML += "<my-logic-gate gate-type=\"" + level["inputs"][i] + "\"></my-logic-gate>\n";
+          innerHTML += "</li>\n";
+        }
+        innerHTML += "</ul>\n";
+
+        // Loop through all of the levels to the digital circuit
+        // Create the logic gates at each level
+        for(var i = 0; i < level["gates"].length; i++){
+          innerHTML += "<ul>\n";
+          for(var j = 0; j < level["gates"][i].length; j++){
+            innerHTML += "<li>\n";
+            innerHTML += "<my-logic-gate gate-type=\"" + level["gates"][i][j]["gate"] + "\"></my-logic-gate>\n";
+            innerHTML += "</li>\n";
+          }
+          innerHTML += "</ul>\n";
+        }
+
+        // Create the outputs
+        innerHTML += "<ul>\n";
+        for(var i = 0; i < level["outputs"].length; i++){
+          innerHTML += "<li>\n";
+          innerHTML += "<my-logic-gate gate-type=\"" + level["outputs"][i] + "\"></my-logic-gate>\n";
+          innerHTML += "</li>\n";
+        }
+        innerHTML += "</ul>\n"
+
+        console.log(innerHTML);
+        this.$.circuitPaperItem.innerHTML = innerHTML;
+      }
+    }
+
+    window.customElements.define(MyLevel.is, MyLevel);
+  </script>
+</dom-module>

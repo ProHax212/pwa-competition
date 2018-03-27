@@ -9,8 +9,7 @@
     "src/my-home.html",
     "src/my-levels.html",
     "src/my-learning.html",
-    "src/my-highscores.html",
-    "src/my-test.html"
+    "src/my-highscores.html"
   ],
   "sources": [
     "images/**/*",

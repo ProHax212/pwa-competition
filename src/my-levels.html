@@ -10,27 +10,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+
+<link rel="import" href="my-level-selector.html">
+<link rel="import" href="my-level.html">
 
 <dom-module id="my-levels">
   <template>
-    <style include="shared-styles">
+    <style include="app-grid-style shared-styles">
       :host {
         display: block;
 
         padding: 10px;
+
+        --app-grid-columns: 3;
+        --app-grid-item-height: auto;
       }
     </style>
 
-    <div class="card">
-      <div class="circle">1</div>
-      <h1>Levels</h1>
-      <p>This is the levels view</p>
+    <!-- Levels for the player to choose from -->
+    <div class="app-grid">
+      <my-level-selector level="1"></my-level-selector>
+      <my-level-selector level="2"></my-level-selector>
+      <my-level-selector level="3"></my-level-selector>
+      <my-level-selector level="4"></my-level-selector>
+      <my-level-selector level="5"></my-level-selector>
+      <my-level-selector level="6"></my-level-selector>
     </div>
+    <my-level level="one"></my-level>
   </template>
 
   <script>
     class LevelsView extends Polymer.Element {
       static get is() { return 'my-levels'; }
+
+      // Used to populate the levels
+      constructor(){
+        super();
+      }
     }
 
     window.customElements.define(LevelsView.is, LevelsView);

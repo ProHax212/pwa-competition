@@ -1,0 +1,57 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+
+<dom-module id="my-logic-gate">
+  <template>
+    <style>
+      :host{
+        display: block;
+        padding: 5px;
+        float: left;
+
+        --iron-image-width: 50px;
+        --iron-image-height: 50px;
+      }
+    </style>
+    <iron-image id="gateImage" src="../images/and_gate.png"></iron-image>
+  </template>
+
+  <script>
+    class MyLogicGate extends Polymer.Element{
+      static get is(){
+        return "my-logic-gate";
+      }
+
+      static get properties(){
+        return{
+          gateType:{
+            type:String,
+            observer : "_gateTypeChanged"
+          }
+        };
+      }
+
+      constructor(){
+        super();
+      }
+
+      // Change the image source based on the gate type
+      _gateTypeChanged(newGateType){
+        var images = {
+          "and" : "../images/and_gate.png",
+          "or" : "../images/or_gate.png",
+          "xor" : "../images/xor_gate.png",
+          "xnor" : "../images/xnor_gate.png",
+          "not" : "../images/not_gate.png",
+          "nand" : "../images/nand_gate.png",
+          "nor" : "../images/nor_gate.png",
+          "one" : "../images/one.png",
+          "zero" : "../images/zero.png",
+          "empty" : "../images/empty.png"
+        }
+        this.$.gateImage.setAttribute("src", images[newGateType]);
+      }
+    }
+    window.customElements.define(MyLogicGate.is, MyLogicGate);
+  </script>
+</dom-module>
